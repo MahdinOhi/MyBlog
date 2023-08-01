@@ -42,7 +42,7 @@
         <form method="get" action="/search" class="my-2 my-lg-0 mx-3">
           <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="query"
             id="query">
-          <button class="btn btn-outline-success my-2 my-sm-0 " type="submit">Search</button>
+          <button class="btn btn-outline-primary my-2 my-sm-0 " type="submit">Search</button>
           <a href="/admin" role="button" target="_blank" class="btn btn-outline-danger m-2 my-sm-0"> Admin Panel </a>
         </form>
 
@@ -140,12 +140,8 @@
     </div>
   </div>
 
+{% block body %} {% endblock body %}
 
-
-
-
-
-  {% block body %} {% endblock body %}
 
   <!-- Login Modal -->
   <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModal" aria-hidden="true">
