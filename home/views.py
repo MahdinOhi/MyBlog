@@ -4,6 +4,9 @@ from django.contrib import messages
 from django.contrib.auth.models import User
 from django.contrib.auth  import authenticate,  login, logout
 from blog.models import Post
+from home.forms import updateProfile
+from django.views.generic.edit import FormView
+from django.contrib import messages
 
 # HTML Pages
 def home(request):
@@ -53,9 +56,9 @@ def handleSignUp(request):
         pass2=request.POST['pass2']
         
         # check for errorneous input
-        if len(username)<10:
-            messages.error(request, " Your user name must be under 10 characters")
-            return redirect('home')
+        # if len(username)<10:
+        #     messages.error(request, " Your user name must be under 10 characters")
+        #     return redirect('home')
 
         if not username.isalnum():
             messages.error(request, " User name should only contain letters and numbers")
@@ -97,4 +100,15 @@ def handleLogout(request):
     messages.success(request, "Successfully logged out")
     return redirect('home')
 
-    
+def userProfile(request):
+    return render(request, 'home/profile.html')
+
+def updateProfile(request):
+    if request.method == 'POST':
+        profile_form = updateProfile(request.POST, instance=request.user.profile)
+        if profile_form.is_valid():
+            profile_form.save()
+            return redirect('profile')
+    else:
+        profile_form = updateProfileForm(instance=request.user.profile)
+    return render(request, 'profile.html', {'profile_form': profile_form})

@@ -11,6 +11,7 @@
     integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
 
   <title>{% block title %} {% endblock title %}</title>
+  {% csrf_token %}
 </head>
 
 <body>
@@ -55,6 +56,7 @@
               Welcome {{request.user}}</a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
               <a class="dropdown-item" href="/logout">Logout</a>
+              <a class="dropdown-item" href="/profile">Your Profile</a>
 
             </div>
           </li>
@@ -99,6 +101,7 @@
         </div>
         <div class="modal-body">
           <form action="/signup" method='post'>
+            {% csrf_token %}
             <div class="form-group">
               <label for="username">Username</label>
               <input type="text" class="form-control" id="username" name="username"
@@ -140,7 +143,8 @@
     </div>
   </div>
 
-{% block body %} {% endblock body %}
+  {% block css %}{% endblock css %}
+  {% block body %} {% endblock body %}
 
 
   <!-- Login Modal -->
@@ -154,7 +158,8 @@
           </button>
         </div>
         <div class="modal-body">
-          <form action="/login" method="POST"> {% csrf_token %}
+          <form action="/login" method="POST">
+            {% csrf_token %}
             <div class="form-group">
               <label for="username">Username</label>
               <input type="text" class="form-control" id="loginusername" name="loginusername"
