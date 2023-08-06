@@ -1,12 +1,8 @@
 from django import forms
+from django.contrib.auth.models import User
 
 
-class updateProfile(forms.Form):
-    username = forms.CharField()
-    first_name = forms.CharField(widget=forms.Textarea)
-    last_name = forms.CharField(widget=forms.Textarea)
-    email = forms.EmailField()
-
-    def send_email(self):
-        # send email using the self.cleaned_data dictionary
-        pass
+class UserUpdateForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ['username', 'first_name', 'last_name', 'email']

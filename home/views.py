@@ -4,7 +4,7 @@ from django.contrib import messages
 from django.contrib.auth.models import User
 from django.contrib.auth  import authenticate,  login, logout
 from blog.models import Post
-from home.forms import updateProfile
+from home.forms import UserUpdateForm
 from django.views.generic.edit import FormView
 from django.contrib import messages
 
@@ -100,15 +100,13 @@ def handleLogout(request):
     messages.success(request, "Successfully logged out")
     return redirect('home')
 
-def userProfile(request):
-    return render(request, 'home/profile.html')
 
-def updateProfile(request):
+def userProfile(request):
     if request.method == 'POST':
-        profile_form = updateProfile(request.POST, instance=request.user.profile)
+        profile_form = UserUpdateForm(request.POST, instance=request.user)
         if profile_form.is_valid():
             profile_form.save()
-            return redirect('profile')
+            return redirect('userProfile')
     else:
-        profile_form = updateProfileForm(instance=request.user.profile)
-    return render(request, 'profile.html', {'profile_form': profile_form})
+        profile_form = UserUpdateForm(instance=request.user)
+    return render(request, 'home/profile.html', {'profile_form': profile_form})
